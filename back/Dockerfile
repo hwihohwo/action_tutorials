@@ -1,5 +1,5 @@
 
-FROM python:latest AS builder
+FROM python:latest 
 EXPOSE 8000
 WORKDIR /app
 COPY requirements.txt /app

@@ -43,6 +43,11 @@ front-test:
 	@echo -e "$(CYAN)Running front tests.$(COFF)"
 	@docker run front npm test
 
+back-test:
+	@echo -e "$(CYAN)Running back tests.$(COFF)"
+	@docker run back python -m unittest test
+
+
 # makemigrations:
 # 	@echo -e "$(CYAN)Running django makemigrations:$(COFF)"
 # 	@docker-compose -f docker-compose-prod.yml run --rm web python ./manage.py makemigrations $(cmd)

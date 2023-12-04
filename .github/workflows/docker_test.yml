@@ -25,8 +25,4 @@ jobs:
       # 앞의 작업이 실패/성공과 관계 없이 컨테이너들을 종료합니다.
       - name: Stop containers
         if: always()
-<<<<<<< HEAD
         run: docker-compose -f "docker-compose-dev.yml" down
-=======
-        run: docker-compose -f "docker-compose-dev.yml" down
->>>>>>> 19347edc6b4b753ed18fc6bce4800882f0021c52

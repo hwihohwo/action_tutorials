@@ -23,7 +23,7 @@ jobs:
         run: make front-test
 
       - name: Run back tests
-        run: make back-test
+        run: docker run back python -m unittest test
 
       # 앞의 작업이 실패/성공과 관계 없이 컨테이너들을 종료합니다.
       - name: Stop containers

@@ -45,7 +45,7 @@ front-test:
 
 back-test:
 	@echo -e "$(CYAN)Running back tests.$(COFF)"
-	@docker run back ls
+	@docker run back phthon -m unittest test
 
 
 # makemigrations:

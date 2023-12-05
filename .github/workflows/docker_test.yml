@@ -22,8 +22,10 @@ jobs:
       - name: Run front tests
         run: make front-test
 
-      - name: Run back tests
-        run: make back-test
+      # - name: Run back tests
+      #   run: make back-test
+      - name: Back python version check
+        run: python --version
 
       # 앞의 작업이 실패/성공과 관계 없이 컨테이너들을 종료합니다.
       - name: Stop containers

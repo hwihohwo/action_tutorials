@@ -41,11 +41,11 @@ runserver-dev:
 
 front-test:
 	@echo -e "$(CYAN)Running front tests.$(COFF)"
-	@docker run front npm test
+	@docker exec -it front npm test
 
 back-test:
 	@echo -e "$(CYAN)Running back tests.$(COFF)"
-	@docker run back phthon -m unittest test
+	@docker exec -it back python -m unittest test
 
 
 # makemigrations:

@@ -45,7 +45,7 @@ front-test:
 
 back-test:
 	@echo -e "$(CYAN)Running back tests.$(COFF)"
-	@docker run back whereis python
+	@docker run back ls
 
 
 # makemigrations:

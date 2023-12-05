@@ -9,7 +9,7 @@ GRAY ?= \033[0;37m
 WHITE ?= \033[1;37m
 COFF ?= \033[0m
 
-.PHONY: all help shell shell-dev build build-dev runserver runserver-dev collectstatic collectstatic-dev makemigrations makemigrations-dev migrate migrate-dev load-initial-data load-many-posts superuser superuser-dev shutdown shutdown-dev shutdown-volumes shutdown-volumes-dev logs logs-dev logs-interactive logs-interactive-dev coverage-django lint lint-fix test-project test-website test-users docker
+.PHONY: all help shell shell-dev build build-dev runserver runserver-dev collectstatic collectstatic-dev makemigrations makemigrations-dev migrate migrate-dev load-initial-data load-many-posts superuser superuser-dev shutdown shutdown-dev shutdown-volumes shutdown-volumes-dev logs logs-dev logs-interactive logs-interactive-dev coverage-django lint lint-fix test-project test-website test-users docker fclean
 
 all: help
 
@@ -32,12 +32,10 @@ build-dev:
 runserver:
 	@echo -e "$(GREEN)Starting Docker container with the app$(COFF)"
 	@docker-compose -f docker-compose-prod.yml up -d
-	@echo -e "$(CYAN)App ready and listening at http://127.0.0.1.$(COFF)"
 
 runserver-dev:
 	@echo -e "$(GREEN)Starting Docker container with the app in development.$(COFF)"
 	@docker-compose -f docker-compose-dev.yml up -d
-	@echo -e "$(CYAN)App ready and listening at http://127.0.0.1:8000.$(COFF)"
 
 front-test:
 	@echo -e "$(CYAN)Running front tests.$(COFF)"
@@ -47,6 +45,37 @@ back-test:
 	@echo -e "$(CYAN)Running back tests.$(COFF)"
 	@docker exec back python -m unittest test
 
+shutdown:
+	@echo -e "$(CYAN)Stopping services:$(COFF)"
+	@docker-compose -f docker-compose-prod.yml down
+
+shutdown-dev:
+	@echo -e "$(CYAN)Stopping services:$(COFF)"
+	@docker-compose -f docker-compose-dev.yml down
+
+shutdown-volumes:
+	@echo -e "$(CYAN)Stopping services and deleting volumes:$(COFF)"
+	@docker-compose -f docker-compose-prod.yml down --volumes
+
+shutdown-volumes-dev:
+	@echo -e "$(CYAN)Stopping services and deleting volumes:$(COFF)"
+	@docker-compose -f docker-compose-dev.yml down --volumes
+
+logs:
+	@echo -e "$(CYAN)Checking logs:$(COFF)"
+	@docker-compose -f docker-compose-prod.yml logs
+
+logs-dev:
+	@echo -e "$(CYAN)Checking logs:$(COFF)"
+	@docker-compose -f docker-compose-dev.yml logs
+
+logs-interactive:
+	@echo -e "$(CYAN)Checking logs interactively:$(COFF)"
+	@docker-compose -f docker-compose-prod.yml logs -f
+
+logs-interactive-dev:
+	@echo -e "$(CYAN)Checking logs interactively:$(COFF)"
+	@docker-compose -f docker-compose-dev.yml logs -f
 
 # makemigrations:
 # 	@echo -e "$(CYAN)Running django makemigrations:$(COFF)"
@@ -87,38 +116,6 @@ back-test:
 # superuser-dev:
 # 	@echo -e "$(CYAN)Creating superuser:$(COFF)"
 # 	@docker-compose -f docker-compose-dev.yml run --rm web python ./manage.py createsuperuser $(cmd)
-
-shutdown:
-	@echo -e "$(CYAN)Stopping services:$(COFF)"
-	@docker-compose -f docker-compose-prod.yml down
-
-shutdown-dev:
-	@echo -e "$(CYAN)Stopping services:$(COFF)"
-	@docker-compose -f docker-compose-dev.yml down
-
-shutdown-volumes:
-	@echo -e "$(CYAN)Stopping services and deleting volumes:$(COFF)"
-	@docker-compose -f docker-compose-prod.yml down --volumes
-
-shutdown-volumes-dev:
-	@echo -e "$(CYAN)Stopping services and deleting volumes:$(COFF)"
-	@docker-compose -f docker-compose-dev.yml down --volumes
-
-logs:
-	@echo -e "$(CYAN)Checking logs:$(COFF)"
-	@docker-compose -f docker-compose-prod.yml logs
-
-logs-dev:
-	@echo -e "$(CYAN)Checking logs:$(COFF)"
-	@docker-compose -f docker-compose-dev.yml logs
-
-logs-interactive:
-	@echo -e "$(CYAN)Checking logs interactively:$(COFF)"
-	@docker-compose -f docker-compose-prod.yml logs -f
-
-logs-interactive-dev:
-	@echo -e "$(CYAN)Checking logs interactively:$(COFF)"
-	@docker-compose -f docker-compose-dev.yml logs -f
 
 # coverage-django:
 # 	@echo -e "$(CYAN)Running automatic code coverage check for Python:$(COFF)"

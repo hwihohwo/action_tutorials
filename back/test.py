@@ -9,6 +9,10 @@ class TestAddFunction(unittest.TestCase):
         result = add(3, 5)
         self.assertEqual(result, 8)
 
+    def test_add_zero(self):
+        result = add(0, 0)
+        self.assertEqual(result, 0)
+
     def test_add_negative_numbers(self):
         result = add(-3, -7)
         self.assertEqual(result, -10)

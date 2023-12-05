@@ -15,6 +15,7 @@ services:
     container_name: db
     hostname: db
   front:
+    image: front
     build:
       context: ./front
       dockerfile: Dockerfile
@@ -29,6 +30,7 @@ services:
     container_name: front
     hostname: front
   back:
+    image: back
     build:
       context: ./back
       dockerfile: Dockerfile

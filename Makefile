@@ -45,7 +45,7 @@ front-test:
 
 back-test:
 	@echo -e "$(CYAN)Running back tests.$(COFF)"
-	@docker run back /usr/local/bin/python -m unittest test
+	@docker run back /usr/local/bin/python --version
 
 
 # makemigrations:

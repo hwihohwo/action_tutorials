@@ -9,7 +9,7 @@ GRAY ?= \033[0;37m
 WHITE ?= \033[1;37m
 COFF ?= \033[0m
 
-.PHONY: all help shell shell-dev build build-dev runserver runserver-dev collectstatic collectstatic-dev makemigrations makemigrations-dev migrate migrate-dev load-initial-data load-many-posts superuser superuser-dev shutdown shutdown-dev shutdown-volumes shutdown-volumes-dev logs logs-dev logs-interactive logs-interactive-dev coverage-django lint lint-fix test-project test-website test-users docker fclean
+.PHONY: all help shell shell-dev build build-dev runserver runserver-dev collectstatic collectstatic-dev makemigrations makemigrations-dev migrate migrate-dev load-initial-data load-many-posts superuser superuser-dev shutdown shutdown-dev shutdown-volumes shutdown-volumes-dev logs logs-dev logs-interactive logs-interactive-dev coverage-django lint lint-fix test-project test-website test-users docker fclean re-dev re
 
 all: help
 
@@ -60,6 +60,10 @@ shutdown-volumes:
 shutdown-volumes-dev:
 	@echo -e "$(CYAN)Stopping services and deleting volumes:$(COFF)"
 	@docker-compose -f docker-compose-dev.yml down --volumes
+
+re-dev: shutdown-dev build-dev runserver-dev
+
+re: shutdown build runserver
 
 logs:
 	@echo -e "$(CYAN)Checking logs:$(COFF)"

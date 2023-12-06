@@ -7,9 +7,9 @@ RUN apk update && apk add bash
 RUN apk add nginx
 RUN npm install
 # RUN npm build
+RUN mkdir -p /usr/share/nginx/html
 COPY ./nginx/default.conf /etc/nginx/http.d/default.conf
-# RUN mkdir /usr/share/nginx
-# RUN cp -r ./build /usr/share/nginx/html
+RUN cp -r ./html/* /usr/share/nginx/html
 
 EXPOSE 8080
 
